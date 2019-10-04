@@ -34,6 +34,18 @@ dtparam=audio=off
 hdmi_force_hotplug=1
 EOF'
 
+#-> Set raspbian default audio card
+sudo sh -c 'cat > /etc/asound.conf <<EOF
+pcm.!default {
+    type hw
+    card 1
+}
+ctl.!default {
+    type hw
+    card 1
+}
+EOF'
+
 #-> Update packags and install git, python and pip
 sudo apt update
 sudo apt install -y git python3 python3-pip python3-dev
@@ -61,12 +73,8 @@ $QNI_DIR/qni_simulator/install.sh
 $QNI_DIR/qni_led_driver/install.sh
 $QNI_DIR/qni_touch_driver/install.sh
 
-#-> Set all qni files to be accessible to current user
-sudo chown -R $CUR_USER:$CUR_USER $QNI_DIR
-
 #-> Install samba server for sharing 'Public' dir via network
 sudo DEBIAN_FRONTEND=noninteractive apt install -y samba samba-common-bin
-chmod a+w $QNI_DIR
 echo -ne '\n\n' | sudo smbpasswd -a $CUR_USER
 sudo sh -c "cat >> /etc/samba/smb.conf <<EOF
 force user = $CUR_USER
