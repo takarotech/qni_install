@@ -27,7 +27,7 @@ echo -ne "$PASSWORD\n$PASSWORD\n" | sudo passwd $CUR_USER
 echo -ne "$PASSWORD\n$PASSWORD\n" | sudo passwd root
 
 #-> Set raspbian configs to match our hardware requirements
-sudo sh -c 'cat > /boot/config.txt <<EOF
+sudo sh -c 'cat >> /boot/config.txt <<EOF
 max_usb_current=1
 pi3-disable-bt
 dtparam=audio=off
@@ -57,6 +57,15 @@ sudo -H pip3 install --upgrade ipython pyalsaaudio
 #-> Install pil and pygame, requires apt 'dev' packages
 sudo apt install -y libsdl-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libsmpeg-dev libportmidi-dev libavformat-dev libswscale-dev python3-numpy
 sudo -H pip3 install --upgrade Pillow pygame
+
+#-> Create custom autostart
+mkdir -p $HOME/.config/lxsession/LXDE-pi
+cat > $HOME/.config/lxsession/LXDE-pi/autostart <<EOF
+@lxpanel --profile LXDE-pi
+@pcmanfm --desktop --profile LXDE-pi
+#@xscreensaver -no-splash
+#@point-rpi
+EOF
 
 #-> Create qni dir and clone qni repos into it
 mkdir -p $QNI_DIR
@@ -96,5 +105,5 @@ sudo raspi-config nonint do_expand_rootfs
 sudo raspi-config nonint do_hostname $HOSTNAME
 
 #-> Reboot host for changes to take effect
-echo "Rebooting in 5 seconds..."
+echo 'Rebooting in 5 seconds...'
 sleep 5; sudo reboot
