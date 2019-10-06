@@ -29,8 +29,10 @@ git clone https://github.com/takarotech/qni_install.git
 ## Snippets:
 #### Autostart Custom Script On Raspbian
 ```echo @$HOME/Public/gameserver/start_servers.py >> $HOME/.config/lxsession/LXDE-pi/autostart```
-#### Edit Configuration File:
+#### Edit Configuration File
 ```nano ~/qni_conf.json```
+#### See evdev events
+```python3 -m evdev.evtest```
 
 ## Enjoy!
 Qni team
