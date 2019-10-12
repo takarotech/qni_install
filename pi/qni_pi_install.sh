@@ -8,8 +8,8 @@ CUR_USER=$(whoami)
 
 #-> Make sure we don't run as root
 if (( EUID == 0 )); then
-   echo 'Please run without sudo!' 1>&2
-   exit 1
+	echo 'Please run without sudo!' 1>&2
+	exit 1
 fi
 
 #-> Add common aliases
@@ -37,12 +37,12 @@ EOF'
 #-> Set raspbian default audio card
 sudo sh -c 'cat > /etc/asound.conf <<EOF
 pcm.!default {
-    type hw
-    card 1
+	type hw
+	card 1
 }
 ctl.!default {
-    type hw
-    card 1
+	type hw
+	card 1
 }
 EOF'
 
@@ -99,10 +99,14 @@ wins support = yes
  force user = $CUR_USER
 EOF"
 
-#-> Enable ssh, expand file system and set hostname
+#-> Remove "Welcome to Raspberry Pi" startup wizard
+sudo rm /etc/xdg/autostart/piwiz.desktop
+
+#-> Enable ssh, expand file system, set hostname and timezone
 sudo raspi-config nonint do_ssh 0
 sudo raspi-config nonint do_expand_rootfs
 sudo raspi-config nonint do_hostname $HOSTNAME
+sudo raspi-config nonint do_change_timezone Israel
 
 #-> Reboot host for changes to take effect
 echo 'Rebooting in 5 seconds...'

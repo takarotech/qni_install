@@ -4,8 +4,8 @@ QNI_DIR=$HOME/Public/qni_playground
 
 #-> Make sure we don't run as root
 if (( EUID == 0 )); then
-   echo 'Please run without sudo!' 1>&2
-   exit 1
+	echo 'Please run without sudo!' 1>&2
+	exit 1
 fi
 
 #-> Update packags and install git, python and pip
