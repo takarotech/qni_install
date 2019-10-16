@@ -59,8 +59,9 @@ sudo apt install -y libsdl-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-tt
 sudo -H pip3 install --upgrade Pillow pygame
 
 #-> Create custom autostart
-mkdir -p $HOME/.config/lxsession/LXDE-pi
-cat > $HOME/.config/lxsession/LXDE-pi/autostart <<EOF
+AUTOSTART_CONF=$HOME/.config/lxsession/LXDE-pi/autostart
+mkdir -p $(dirname $AUTOSTART_CONF)
+cat > $AUTOSTART_CONF <<EOF
 @lxpanel --profile LXDE-pi
 @pcmanfm --desktop --profile LXDE-pi
 #@xscreensaver -no-splash
@@ -101,6 +102,21 @@ EOF"
 
 #-> Remove "Welcome to Raspberry Pi" startup wizard
 sudo rm /etc/xdg/autostart/piwiz.desktop
+
+#-> Move taskbar to bottom
+PANEL_CONF=$HOME/.config/lxpanel/LXDE-pi/panels/panel
+cp /etc/xdg/lxpanel/LXDE-pi/panels/panel $PANEL_CONF
+sed -i -e '/edge/s/=.*/=bottom/' $PANEL_CONF
+
+#-> Set black wallpaper
+DESKTOP_CONF=$HOME/.config/pcmanfm/LXDE-pi/desktop-items-0.conf
+mkdir -p $(dirname $DESKTOP_CONF)
+cat > $DESKTOP_CONF <<EOF
+[*]
+desktop_bg=#000000000000
+wallpaper_mode=color
+show_trash=0
+EOF
 
 #-> Enable ssh, expand file system, set hostname and timezone
 sudo raspi-config nonint do_ssh 0
