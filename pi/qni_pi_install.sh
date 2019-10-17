@@ -105,6 +105,7 @@ sudo rm /etc/xdg/autostart/piwiz.desktop
 
 #-> Move taskbar to bottom
 PANEL_CONF=$HOME/.config/lxpanel/LXDE-pi/panels/panel
+mkdir -p $(dirname $PANEL_CONF)
 cp /etc/xdg/lxpanel/LXDE-pi/panels/panel $PANEL_CONF
 sed -i -e '/edge/s/=.*/=bottom/' $PANEL_CONF
 
