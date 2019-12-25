@@ -74,13 +74,13 @@ cd $QNI_DIR
 git clone https://github.com/takarotech/qni_core.git
 git clone https://github.com/takarotech/qni_games.git
 git clone https://github.com/takarotech/qni_simulator.git
-git clone https://github.com/takarotech/qni_led_driver.git
+#git clone https://github.com/takarotech/qni_led_driver.git
 git clone https://github.com/takarotech/qni_touch_driver.git
 
 #-> Install qni repos
 $QNI_DIR/qni_core/install.sh
 $QNI_DIR/qni_simulator/install.sh
-$QNI_DIR/qni_led_driver/install.sh
+#$QNI_DIR/qni_led_driver/install.sh
 $QNI_DIR/qni_touch_driver/install.sh
 
 #-> Install samba server for sharing 'Public' dir via network
