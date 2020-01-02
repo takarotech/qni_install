@@ -66,6 +66,7 @@ cat > $AUTOSTART_CONF <<EOF
 @pcmanfm --desktop --profile LXDE-pi
 #@xscreensaver -no-splash
 #@point-rpi
+@/home/pi/Public/qni_playground/gameserver/run_games.sh
 EOF
 
 #-> Create qni dir and clone qni repos into it
